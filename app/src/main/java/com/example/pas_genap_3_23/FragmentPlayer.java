@@ -19,23 +19,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentLaLiga extends Fragment {
+public class FragmentPlayer extends Fragment {
 
     RecyclerView recyclerView;
-    TeamAdapter teamAdapter;
-    List<Team> teamList = new ArrayList<>();
+    PlayerAdapter playerAdapter;
+    List<Player> playerList = new ArrayList<>();
     ProgressBar pbRV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_laliga, container, false);
+        View view = inflater.inflate(R.layout.fragment_player, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         pbRV = view.findViewById(R.id.pbRV);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        teamAdapter = new TeamAdapter(teamList);
-        recyclerView.setAdapter(teamAdapter);
+        playerAdapter = new PlayerAdapter(playerList);
+        recyclerView.setAdapter(playerAdapter);
 
         getTeamData();
 
@@ -47,30 +47,29 @@ public class FragmentLaLiga extends Fragment {
         recyclerView.setVisibility(View.GONE);
 
         ApiService apiService = ApiClient.getRetrofit().create(ApiService.class);
-        Call<TeamResponse> call = apiService.getTeamsByCountry("Soccer", "Spain");
+        Call<PlayerResponse> call = apiService.getPlayerDetails("soccer");
 
-        call.enqueue(new Callback<TeamResponse>() {
+        call.enqueue(new Callback<PlayerResponse>() {
             @Override
-            public void onResponse(Call<TeamResponse> call, Response<TeamResponse> response) {
+            public void onResponse(Call<PlayerResponse> call, Response<PlayerResponse> response) {
                 pbRV.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    teamList.clear();
-                    teamList.addAll(response.body().teams);
-                    teamAdapter.notifyDataSetChanged();
+                    playerList.clear();
+                    playerList.addAll(response.body().players);
+                    playerAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getContext(), "Respon tidak valid", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<TeamResponse> call, Throwable t) {
+            public void onFailure(Call<PlayerResponse> call, Throwable t) {
                 pbRV.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Gagal: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("LaLiga", "API error", t);
             }
         });
     }
-
 }
