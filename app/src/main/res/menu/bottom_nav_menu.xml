@@ -9,6 +9,7 @@
         android:icon="@drawable/laligaa"
         android:title="Laliga" />
     <item
-        android:id="@+id/nav_blm"
-        android:title="BELUM" />
+        android:id="@+id/nav_player"
+        android:icon="@drawable/outline_man_24"
+        android:title="player" />
 </menu>
