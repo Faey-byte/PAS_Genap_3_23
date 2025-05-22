@@ -5,9 +5,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("search_all_teams.php?s=Soccer&c=Spain")
+
+    @GET("search_all_teams.php")
     Call<TeamResponse> getTeamsByCountry(@Query("s") String sport, @Query("c") String country);
 
-    @GET("lookupplayer.php?id=34145937")
+    @GET("lookupplayer.php")
     Call<PlayerResponse> getPlayerDetails(@Query("id") String id);
 }
