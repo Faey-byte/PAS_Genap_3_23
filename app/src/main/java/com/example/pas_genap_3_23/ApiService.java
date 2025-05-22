@@ -9,6 +9,6 @@ public interface ApiService {
     @GET("search_all_teams.php")
     Call<TeamResponse> getTeamsByCountry(@Query("s") String sport, @Query("c") String country);
 
-    @GET("lookupplayer.php")
+    @GET("lookup_all_players.php")
     Call<PlayerResponse> getPlayerDetails(@Query("id") String id);
 }

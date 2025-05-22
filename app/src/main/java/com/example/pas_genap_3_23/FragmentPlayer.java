@@ -55,9 +55,9 @@ public class FragmentPlayer extends Fragment {
                 pbRV.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
 
-                if (response.isSuccessful() && response.body() != null && response.body().players != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().player != null) {
                     playerList.clear();
-                    playerList.addAll(response.body().players);
+                    playerList.addAll(response.body().player);
                     playerAdapter.notifyDataSetChanged();
                 } else {
                     playerList.clear();
