@@ -47,7 +47,6 @@ public class FragmentPlayer extends Fragment {
 
         ApiService apiService = ApiClient.getRetrofit().create(ApiService.class);
 
-        // Gunakan ID yang valid (cek dari TheSportsDB)
         Call<PlayerResponse> call = apiService.getPlayerDetails("34145937");
 
         call.enqueue(new Callback<PlayerResponse>() {
